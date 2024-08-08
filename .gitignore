@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# IDE files
+.idea/
+*.iml
+
+# Build outputs
+dist/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db

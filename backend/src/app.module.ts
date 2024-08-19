@@ -16,7 +16,10 @@ import { UserModule } from './modules/user/user.module';
       load: [configs],
       isGlobal: true,
     }),
-    MongooseModule.forRoot(configs().database.uri),
+    //MongooseModule.forRoot(configs().database.uri),
+    MongooseModule.forRoot(configs().database.uri, {
+      dbName: configs().database.name,
+    }),
     UserModule,
     OrderModule,
     AuthModule,

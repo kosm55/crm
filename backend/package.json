@@ -20,10 +20,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prepare": "husky",
-    "migrate:create": "npx migrate-mongoose create -d \"mongodb+srv://admin:adminroot@cluster0.7c2xxg5.mongodb.net/crm?retryWrites=true&w=majority\"",
-    "migrate:up": "npx migrate-mongoose up -d \"mongodb+srv://admin:adminroot@cluster0.7c2xxg5.mongodb.net/crm?retryWrites=true&w=majority\"",
-    "migrate:down": "npx migrate-mongoose down -d \"mongodb+srv://admin:adminroot@cluster0.7c2xxg5.mongodb.net/crm?retryWrites=true&w=majority\"",
-    "migrate:list": "npx migrate-mongoose list -d \"mongodb+srv://admin:adminroot@cluster0.7c2xxg5.mongodb.net/crm?retryWrites=true&w=majority\""
+    "migrate:create": "npx migrate-mongoose create -d \"mongodb+srv://admin:adminroot@cluster0.7c2xxg5.mongodb.net/?retryWrites=true&w=majority\"",
+    "migrate:up": "npx migrate-mongoose up -d \"mongodb+srv://admin:adminroot@cluster0.7c2xxg5.mongodb.net/?retryWrites=true&w=majority\"",
+    "migrate:down": "npx migrate-mongoose down -d \"mongodb+srv://admin:adminroot@cluster0.7c2xxg5.mongodb.net/?retryWrites=true&w=majority\"",
+    "migrate:list": "npx migrate-mongoose list -d \"mongodb+srv://admin:adminroot@cluster0.7c2xxg5.mongodb.net/?retryWrites=true&w=majority\""
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

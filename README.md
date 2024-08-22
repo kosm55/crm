@@ -1,4 +1,4 @@
-## CRM Programming School
+## CRM  
 
 ### Проект
 
@@ -77,7 +77,7 @@
  
 
 ## Документація API
-Документація доступна на http://localhost:3000/docs.
+Документація доступна на http://localhost:3001/docs.
 
 ## Postman Collection
 ### Колекція Postman

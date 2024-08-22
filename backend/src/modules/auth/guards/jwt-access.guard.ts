@@ -38,21 +38,14 @@ export class JwtAccessGuard implements CanActivate {
       accessToken,
       TokenType.ACCESS,
     );
-
-    if (!accessPayload) {
-      throw new UnauthorizedException('Invalid access token');
-    }
-
     const isExist = await this.tokenService.isAccessTokenExist(accessToken);
     if (!isExist) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Access token does not exist');
     }
-
     const user = await this.userService.findById(accessPayload.userId);
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
-
     request.user = AuthMapper.toUserDataDTO(user);
     return true;
   }

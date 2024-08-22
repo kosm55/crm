@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiNotFoundResponse,
@@ -9,6 +17,7 @@ import {
 } from '@nestjs/swagger';
 
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
 import { IUserData } from '../auth/interfases/user-data.interface';
 import { OrderListReqDto } from './dto/req/order-list.req.dto';
 import { UpdateOrderReqDto } from './dto/req/update-order.req.dto';
@@ -22,6 +31,7 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @ApiBearerAuth()
+  @UseGuards(JwtAccessGuard)
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiQuery({
@@ -88,6 +98,7 @@ export class OrderController {
   }
 
   @ApiBearerAuth()
+  @UseGuards(JwtAccessGuard)
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @Put(':orderId')

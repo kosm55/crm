@@ -1,5 +1,6 @@
 import { Transform, Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsInt,
   IsNumber,
   IsOptional,
@@ -60,4 +61,29 @@ export class OrderListReqDto {
   @Type(() => Number)
   @IsNumber()
   age?: number;
+
+  @IsOptional()
+  @IsString()
+  course?: string;
+
+  @IsOptional()
+  @IsString()
+  course_format?: string;
+
+  @IsOptional()
+  @IsString()
+  course_type?: string;
+
+  @IsOptional()
+  @IsString()
+  status?: string;
+
+  @IsOptional()
+  @IsString()
+  group?: string;
+
+  @Transform(TransformHelper.toBoolean)
+  @IsOptional()
+  @IsBoolean()
+  userOnly?: boolean;
 }

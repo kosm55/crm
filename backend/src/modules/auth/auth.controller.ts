@@ -1,10 +1,18 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
-import { BaseUserReqDto } from '../user/dto/req/base-user.req.dto';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { Roles } from './decorators/roles.decorator';
 import { SkipAuth } from './decorators/skip-auth.decorator';
+import { CreatePasswordReqDto } from './dto/req/create-password.req.dto';
+import { CreateUserReqDto } from './dto/req/create-user.req.dto';
 import { SignInReqDto } from './dto/req/sign-in.req.dto';
 import { AuthResDto } from './dto/res/auth.res.dto';
 import { TokenPairResDto } from './dto/res/token-pair.res.dto';
@@ -31,15 +39,47 @@ export class AuthController {
   @Roles(RoleEnum.ADMIN)
   @UseGuards(RolesGuard)
   @ApiBearerAuth()
-  @Post('sign-up/manager')
-  @ApiOperation({ summary: 'Sign up manager (only for admin)' })
-  public async signUpManager(@Body() dto: BaseUserReqDto): Promise<AuthResDto> {
-    return await this.authService.singUp(dto, RoleEnum.MANAGER);
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiOperation({ summary: 'Create manager (only for admin)' })
+  @Post('create-manager')
+  public async signUpManager(@Body() dto: CreateUserReqDto): Promise<any> {
+    return await this.authService.signUp(dto, RoleEnum.MANAGER);
   }
 
   @SkipAuth()
-  @Post('login')
+  @ApiOperation({ summary: 'Activate manager' })
+  @Post('activate/:token')
+  public async activateManager(
+    @Body() dto: CreatePasswordReqDto,
+    @Param('token') token: string,
+  ): Promise<any> {
+    return await this.authService.activateManager(dto, token);
+  }
+
+  @Roles(RoleEnum.ADMIN)
+  @UseGuards(RolesGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Recovery password request, get recovery token' })
+  @Post('recovery-token/:userId')
+  public async getRecoveryToken(@Param('userId') userId: string): Promise<any> {
+    return await this.authService.getRecoveryToken(userId);
+  }
+
+  @SkipAuth()
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Reset password' })
+  @Post('recovery-password/:token')
+  public async recoveryPassword(
+    @Body() dto: CreatePasswordReqDto,
+    @Param('token') token: string,
+  ): Promise<any> {
+    return await this.authService.recoveryPassword(dto, token);
+  }
+  @SkipAuth()
   @ApiOperation({ summary: 'Sign in' })
+  @Post('login')
   public async signIn(@Body() dto: SignInReqDto): Promise<AuthResDto> {
     return await this.authService.signIn(dto);
   }

@@ -33,6 +33,18 @@ export class TokenService {
 
     return { accessToken, refreshToken };
   }
+  public async generateActionToken(payload: IJwtPayload): Promise<string> {
+    return await this.jwtService.signAsync(payload, {
+      secret: this.jwtConfig.activationSecret,
+      expiresIn: this.jwtConfig.activationExpiresIn,
+    });
+  }
+  public async generateRecoveryToken(payload: IJwtPayload): Promise<string> {
+    return await this.jwtService.signAsync(payload, {
+      secret: this.jwtConfig.recoverySecret,
+      expiresIn: this.jwtConfig.recoveryExpiresIn,
+    });
+  }
   public async verifyToken(
     token: string,
     type: TokenType,
@@ -48,7 +60,7 @@ export class TokenService {
       if (error.name === 'JsonWebTokenError') {
         throw new UnauthorizedException('Invalid token');
       }
-      throw new UnauthorizedException('error token');
+      throw new UnauthorizedException('Error token');
     }
   }
 
@@ -60,6 +72,12 @@ export class TokenService {
         break;
       case TokenType.REFRESH:
         secret = this.jwtConfig.refreshSecret;
+        break;
+      case TokenType.ACTIVATE:
+        secret = this.jwtConfig.activationSecret;
+        break;
+      case TokenType.RECOVERY:
+        secret = this.jwtConfig.recoverySecret;
         break;
       default:
         throw new Error('unknown token type');

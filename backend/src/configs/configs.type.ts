@@ -19,4 +19,8 @@ export type JWTConfig = {
   accessExpiresIn: number;
   refreshSecret: string;
   refreshExpiresIn: number;
+  activationSecret: string;
+  activationExpiresIn: number;
+  recoverySecret: string;
+  recoveryExpiresIn: number;
 };

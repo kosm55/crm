@@ -3,10 +3,10 @@ import { Document } from 'mongoose';
 
 export type GroupDocument = Group & Document;
 
-@Schema({ timestamps: true, versionKey: false })
+@Schema({ versionKey: false })
 export class Group extends Document {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   group: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(Group);
+export const GroupSchema = SchemaFactory.createForClass(Group);

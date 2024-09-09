@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "c45953f9-b79b-4934-b345-8e28a6ed0b45",
-		"name": "crm system collection",
+		"_postman_id": "e3ee89d9-8d50-43e9-bbd1-e80f54d6370b",
+		"name": "crm system collection main",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33190513"
 	},
@@ -21,12 +21,22 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_host}}/users",
+							"raw": "{{base_host}}/users?offset&limit=10",
 							"host": [
 								"{{base_host}}"
 							],
 							"path": [
 								"users"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": null
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
 							]
 						}
 					},
@@ -55,6 +65,56 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ban user by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/users/ban/66b9f1470a36de5509166e04",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"users",
+								"ban",
+								"66b9f1470a36de5509166e04"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unban user by ID Copy",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/users/unban/66b9f1470a36de5509166e04",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"users",
+								"unban",
+								"66b9f1470a36de5509166e04"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -62,7 +122,7 @@
 			"name": "auth",
 			"item": [
 				{
-					"name": "sign-up",
+					"name": "sign-up manager",
 					"event": [
 						{
 							"listen": "test",
@@ -85,7 +145,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Anna\",\r\n    \"surname\": \"Lin\" ,\r\n    \"email\": \"ann@gmail.com\",\r\n    \"password\": \"aSW#4_5fhzg\"\r\n    \r\n}",
+							"raw": "{\r\n    \"name\": \"Anna\",\r\n    \"surname\": \"Lin\" ,\r\n    \"email\": \"anns@gmail.com\"    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -93,14 +153,148 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_host}}/auth/sign-up/manager",
+							"raw": "{{base_host}}/auth/create-manager",
 							"host": [
 								"{{base_host}}"
 							],
 							"path": [
 								"auth",
-								"sign-up",
-								"manager"
+								"create-manager"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "activate manager",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"12@xcadAXf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_host}}/auth/activate/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmRkY2UyMDQ2NDgyOTUxYWY0NmY4MDEiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTcyNTgxMjI1NywiZXhwIjoxNzI1ODE0MDU3fQ.Hha9b43-C3obUoMZxixD6oiM7FCxO0HsYAflNsNwp6o",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"auth",
+								"activate",
+								"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmRkY2UyMDQ2NDgyOTUxYWY0NmY4MDEiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTcyNTgxMjI1NywiZXhwIjoxNzI1ODE0MDU3fQ.Hha9b43-C3obUoMZxixD6oiM7FCxO0HsYAflNsNwp6o"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request recovery password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_host}}/auth/recovery-token/66ddce2046482951af46f801",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"auth",
+								"recovery-token",
+								"66ddce2046482951af46f801"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recovery password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"12@xcadAXf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_host}}/auth/recovery-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmRkY2UyMDQ2NDgyOTUxYWY0NmY4MDEiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTcyNTgxMjc1MywiZXhwIjoxNzI1ODE0NTUzfQ.7DqB1H5HSxWP2U8bQ4uutGVHsKhOHC-E6OCR3fly18I",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"auth",
+								"recovery-password",
+								"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmRkY2UyMDQ2NDgyOTUxYWY0NmY4MDEiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTcyNTgxMjc1MywiZXhwIjoxNzI1ODE0NTUzfQ.7DqB1H5HSxWP2U8bQ4uutGVHsKhOHC-E6OCR3fly18I"
 							]
 						}
 					},
@@ -250,7 +444,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_host}}/orders?limit=10&offset&sortField=created_at&sortOrder=desc&name&surname&email&phone&age=",
+							"raw": "{{base_host}}/orders?limit=10&offset&sortField=created_at&sortOrder=desc&name&surname&email&phone&age=&userOnly=true&status=In work&group=66c8dada4fda26c111e3d2c3&course_type&course_format&course=JSCX",
 							"host": [
 								"{{base_host}}"
 							],
@@ -293,7 +487,323 @@
 								{
 									"key": "age",
 									"value": ""
+								},
+								{
+									"key": "userOnly",
+									"value": "true"
+								},
+								{
+									"key": "status",
+									"value": "In work"
+								},
+								{
+									"key": "group",
+									"value": "66c8dada4fda26c111e3d2c3"
+								},
+								{
+									"key": "course_type",
+									"value": null
+								},
+								{
+									"key": "course_format",
+									"value": null
+								},
+								{
+									"key": "course",
+									"value": "JSCX"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "export to excel",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/orders/export-to-excel?limit=&offset&sortField=&sortOrder=&name&surname&email&phone&age=&userOnly=&status&group&course_type&course_format&course=",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"export-to-excel"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": ""
+								},
+								{
+									"key": "offset",
+									"value": null
+								},
+								{
+									"key": "sortField",
+									"value": ""
+								},
+								{
+									"key": "sortOrder",
+									"value": ""
+								},
+								{
+									"key": "name",
+									"value": null
+								},
+								{
+									"key": "surname",
+									"value": null
+								},
+								{
+									"key": "email",
+									"value": null
+								},
+								{
+									"key": "phone",
+									"value": null
+								},
+								{
+									"key": "age",
+									"value": ""
+								},
+								{
+									"key": "userOnly",
+									"value": ""
+								},
+								{
+									"key": "status",
+									"value": null
+								},
+								{
+									"key": "group",
+									"value": null
+								},
+								{
+									"key": "course_type",
+									"value": null
+								},
+								{
+									"key": "course_format",
+									"value": null
+								},
+								{
+									"key": "course",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"group\": \"sep2025\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_host}}/orders/group",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "groups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/orders/group",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "statuses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/orders/status",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "type of courses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/orders/course-type",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"course-type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "courses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/orders/courses",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "statistic by manager ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/orders/66b9e7d601d8019febed8c55/statistic",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"66b9e7d601d8019febed8c55",
+								"statistic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "statistic",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/orders/statistic",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"statistic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_host}}/orders/66b343c523ee1c1189b8a561",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"66b343c523ee1c1189b8a561"
 							]
 						}
 					},
@@ -312,7 +822,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n      \"name\": \"Ann\",\r\n      \"surname\": \"Linoo\",\r\n      \"email\": \"annz@gmail.com\",\r\n      \"phone\": \"380997809809\",\r\n      \"age\": 29,\r\n      \"course\": \"FS\",\r\n      \"course_format\": \"online\",\r\n      \"course_type\": \"vip\",\r\n      \"sum\": null,\r\n      \"already_paid\": null,\r\n      \"created_at\": \"2022-06-02T08:45:09.000Z\",\r\n      \"utm\": \"\",\r\n      \"msg\": \"First edite\",\r\n      \"status\": null,\r\n      \"group\": null,\r\n      \"manager\": null\r\n }",
+							"raw": "{\r\n  \"name\": \"asasas\",\r\n  \"surname\": \"Set\",\r\n  \"email\": \"asas@gmail.com\",\r\n  \"phone\": \"380671234567\",\r\n  \"age\": 25,\r\n  \"course\": \"JSCX\",\r\n  \"course_format\": \"static\",\r\n  \"course_type\": \"minimal\",\r\n  \"sum\": 15000,\r\n  \"already_paid\": 1000,\r\n  \"utm\": \"target_main_target_fullstack_target_js\",\r\n  \"msg\": \"some info\",\r\n  \"status\": \"In work\",\r\n  \"group\": \"66b90d12fe5abf5ba161ae76\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -320,13 +830,47 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_host}}/orders/66b343c523ee1c1189b8a55d",
+							"raw": "{{base_host}}/orders/66b343c523ee1c1189b8a561",
 							"host": [
 								"{{base_host}}"
 							],
 							"path": [
 								"orders",
-								"66b343c523ee1c1189b8a55d"
+								"66b343c523ee1c1189b8a561"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"body\": \"some text5ssdsdsd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_host}}/orders/66b343c523ee1c1189b8a561/comments",
+							"host": [
+								"{{base_host}}"
+							],
+							"path": [
+								"orders",
+								"66b343c523ee1c1189b8a561",
+								"comments"
 							]
 						}
 					},

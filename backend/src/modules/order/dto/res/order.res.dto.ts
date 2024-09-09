@@ -92,7 +92,7 @@ export class OrderResDto {
   status?: string;
 
   @ApiProperty({
-    example: '605c72ef5f3e4a3d8c3c43e2',
+    example: '66b9e7d601d8019febed8c55',
     description: 'ID of the manager responsible for the order',
   })
   manager: string;

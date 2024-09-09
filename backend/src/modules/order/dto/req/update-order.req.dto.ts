@@ -1,18 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
-  IsDateString,
-  IsMongoId,
+  IsEnum,
   IsNumber,
   IsOptional,
   IsString,
   Length,
   Matches,
+  Max,
   Min,
 } from 'class-validator';
+import { Types } from 'mongoose';
 
 import { TransformHelper } from '../../../../common/helpers/transform.helper';
 import { regexConstant } from '../../../../constants/regex.constant';
+import { CourseEnum } from '../../enums/course.enum';
+import { CourseFormatEnum } from '../../enums/course-format.enum';
+import { CourseTypeEnum } from '../../enums/course-type.enum';
+import { StatusEnum } from '../../enums/status.enum';
 
 export class UpdateOrderReqDto {
   @IsOptional()
@@ -24,7 +29,7 @@ export class UpdateOrderReqDto {
     example: 'Nikolas',
     description: 'name',
   })
-  name: string;
+  name?: string | null;
 
   @IsOptional()
   @IsString()
@@ -35,7 +40,7 @@ export class UpdateOrderReqDto {
     example: 'Set',
     description: 'surname',
   })
-  surname: string;
+  surname?: string | null;
 
   @IsOptional()
   @Matches(regexConstant.EMAIL, {
@@ -48,7 +53,7 @@ export class UpdateOrderReqDto {
     example: 'nikolas@gmail.com',
     description: 'email',
   })
-  email: string;
+  email?: string | null;
 
   @IsOptional()
   @Matches(regexConstant.PHONE, {
@@ -60,43 +65,47 @@ export class UpdateOrderReqDto {
     example: '380671234567',
     description: 'phone',
   })
-  phone: string;
+  phone?: string | null;
 
   @IsOptional()
   @IsNumber()
-  @Min(0)
+  @Min(6)
+  @Max(120)
   @ApiProperty({
     example: 25,
     description: 'age',
   })
-  age: number;
+  age?: number | null;
 
   @IsOptional()
-  @IsString()
+  @IsEnum(CourseEnum)
   @Transform(TransformHelper.trim)
   @ApiProperty({
     example: 'JSCX',
     description: 'course',
+    enum: CourseEnum,
   })
-  course: string;
+  course?: CourseEnum | null;
 
   @IsOptional()
-  @IsString()
+  @IsEnum(CourseFormatEnum)
   @Transform(TransformHelper.trim)
   @ApiProperty({
     example: 'static',
     description: 'course format',
+    enum: CourseFormatEnum,
   })
-  course_format: string;
+  course_format?: CourseFormatEnum | null;
 
   @IsOptional()
-  @IsString()
+  @IsEnum(CourseTypeEnum)
   @Transform(TransformHelper.trim)
   @ApiProperty({
     example: 'minimal',
     description: 'course type',
+    enum: CourseTypeEnum,
   })
-  course_type: string;
+  course_type?: CourseTypeEnum | null;
 
   @IsOptional()
   @IsNumber()
@@ -105,7 +114,7 @@ export class UpdateOrderReqDto {
     example: 15000,
     description: 'sum',
   })
-  sum: number;
+  sum?: number | null;
 
   @IsOptional()
   @IsNumber()
@@ -114,15 +123,7 @@ export class UpdateOrderReqDto {
     example: 1000,
     description: 'already paid',
   })
-  already_paid: number;
-
-  @IsOptional()
-  @IsDateString()
-  @ApiProperty({
-    example: '2021-11-02T14:45:02Z',
-    description: 'created_at',
-  })
-  created_at?: Date;
+  already_paid?: number | null;
 
   @IsOptional()
   @IsString()
@@ -131,7 +132,7 @@ export class UpdateOrderReqDto {
     example: 'target_main_target_fullstack_target_js',
     description: 'some info',
   })
-  utm?: string;
+  utm?: string | null;
 
   @IsOptional()
   @IsString()
@@ -140,30 +141,23 @@ export class UpdateOrderReqDto {
     example: 'some info',
     description: 'some info',
   })
-  msg?: string;
+  msg?: string | null;
 
   @IsOptional()
-  @IsString()
+  @IsEnum(StatusEnum)
   @Transform(TransformHelper.trim)
   @ApiProperty({
     example: 'In work',
     description: 'status',
+    enum: StatusEnum,
   })
-  status?: string;
+  status?: StatusEnum | null;
 
   @IsOptional()
-  @IsMongoId()
-  @ApiProperty({
-    example: '66b90d12fe5abf5ba161ae76',
-    description: 'manager id',
-  })
-  manager?: string;
-
-  @IsOptional()
-  @IsMongoId()
+  @Transform(({ value }) => (value ? new Types.ObjectId(value) : null))
   @ApiProperty({
     example: '66b90d12fe5abf5ba161ae76',
     description: 'group id',
   })
-  group?: string;
+  group?: Types.ObjectId | null;
 }

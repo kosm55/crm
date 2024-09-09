@@ -7,10 +7,10 @@ export type UserDocument = User & Document;
 
 @Schema({ timestamps: true, versionKey: false })
 export class User extends Document {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   email: string;
 
-  @Prop({ required: true })
+  @Prop({ default: null })
   password: string;
 
   @Prop({ required: true })
@@ -24,6 +24,15 @@ export class User extends Document {
 
   @Prop({ default: false })
   isActive: boolean;
+
+  @Prop({ default: false })
+  isBanned: boolean;
+
+  @Prop({ default: null })
+  activationToken: string;
+
+  @Prop({ default: null })
+  recoveryToken: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

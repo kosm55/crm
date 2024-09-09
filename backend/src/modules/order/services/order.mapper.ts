@@ -1,4 +1,6 @@
+import { Group } from '../../../database/models/group.schema';
 import { Order } from '../../../database/models/order.schema';
+import { GroupResDto } from '../dto/res/group.res.dto';
 import { OrderResDto } from '../dto/res/order.res.dto';
 
 export class OrderMapper {
@@ -21,6 +23,12 @@ export class OrderMapper {
       status: order.status,
       manager: order.manager ? order.manager.toString() : null,
       group: order.group ? order.group.toString() : null,
+    };
+  }
+  public static toResponseGroupDTO(group: Group): GroupResDto {
+    return {
+      _id: group.id,
+      group: group.group,
     };
   }
 }

@@ -1,9 +1,17 @@
-import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOperation,
+  ApiQuery,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -13,7 +21,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { RoleEnum } from '../auth/enums/role.enum';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { IUserData } from '../auth/interfases/user-data.interface';
-import { UpdateUserReqDto } from './dto/req/update-user.req.dto';
+import { UserListReqDto } from './dto/req/user-list.req.dto';
 import { BaseUserResDto } from './dto/res/base-user.res.dto';
 import { UserListResDto } from './dto/res/user-list.res.dto';
 import { UserService } from './services/user.service';
@@ -41,23 +49,46 @@ export class UserController {
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @Get()
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Number of items per page',
+  })
+  @ApiQuery({
+    name: 'offset',
+    required: false,
+    type: Number,
+    description: 'Offset from the start',
+  })
   @ApiOperation({ summary: 'Get list of managers ' })
-  public async getList(): Promise<UserListResDto> {
-    return await this.userService.getList();
+  public async getList(
+    @Query() query: UserListReqDto,
+  ): Promise<UserListResDto> {
+    return await this.userService.getList(query);
   }
 
-  @ApiBearerAuth()
   @Roles(RoleEnum.ADMIN)
   @UseGuards(RolesGuard)
+  @ApiBearerAuth()
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
-  @Put(':userId')
-  @ApiOperation({ summary: 'Update some user (only for admin)' })
-  public async update(
-    @Body() updateUserDto: UpdateUserReqDto,
-    @Param('userId') userId: string,
-  ): Promise<string> {
-    return `user ${userId} can be updated`;
+  @ApiOperation({ summary: 'Bun manager' })
+  @Patch('ban/:userId')
+  public async ban(@Param('userId') userId: string): Promise<string> {
+    return await this.userService.banUser(userId);
+  }
+
+  @Roles(RoleEnum.ADMIN)
+  @UseGuards(RolesGuard)
+  @ApiBearerAuth()
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiOperation({ summary: 'Unban manager' })
+  @Patch('unban/:userId')
+  public async unban(@Param('userId') userId: string): Promise<string> {
+    return await this.userService.unbanUser(userId);
   }
 }

@@ -1,4 +1,4 @@
-export class BaseUserResDto {
+export class RecoveryUserResDto {
   _id: string;
 
   name: string;
@@ -10,4 +10,6 @@ export class BaseUserResDto {
   isActive: boolean;
 
   isBanned: boolean;
+
+  recoveryToken: string;
 }

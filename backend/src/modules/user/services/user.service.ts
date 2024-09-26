@@ -87,13 +87,15 @@ export class UserService {
   public async getList(query: UserListReqDto): Promise<UserListResDto> {
     const { limit = 10, offset = 0 } = query;
     const total = await this.userModel
-      .countDocuments({
-        role: RoleEnum.MANAGER,
-      })
+      .countDocuments()
+      // .countDocuments({
+      //   role: RoleEnum.MANAGER,
+      // })
       .exec();
 
     const managers = await this.userModel
-      .find({ role: RoleEnum.MANAGER })
+      // .find({ role: RoleEnum.MANAGER })
+      .find()
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(limit)

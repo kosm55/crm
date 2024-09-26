@@ -10,4 +10,6 @@ export class BaseUserResDto {
   isActive: boolean;
 
   isBanned: boolean;
+
+  role: string;
 }

@@ -1,17 +1,29 @@
 export interface IUser {
-  id: string;
+  _id: string;
   name: string;
   surname: string;
   email: string;
   isActive: boolean;
   isBanned: boolean;
+  role: string;
 }
-export interface IActivateUser {
-  id: string;
+export interface IUserRegister {
+  name: string;
+  surname: string;
+  email: string;
+}
+export interface IUserActivate {
+  _id: string;
   name: string;
   surname: string;
   email: string;
   isActive: boolean;
   isBanned: boolean;
+  role: string;
   activationToken: string;
+}
+
+export interface IUserForOrder {
+  name: string;
+  surname: string;
 }

@@ -11,5 +11,7 @@ export class ActivatedUserResDto {
 
   isBanned: boolean;
 
+  role: string;
+
   activationToken: string;
 }

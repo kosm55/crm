@@ -83,7 +83,7 @@ export class OrderService {
             preserveNullAndEmptyArrays: true,
           },
         },
-
+        { $sort: sort },
         {
           $project: {
             _id: 1,
@@ -102,19 +102,18 @@ export class OrderService {
             msg: 1,
             status: 1,
             updatedAt: 1,
+            group: 1,
+            manager: 1,
 
-            manager: {
-              name: '$managerDetails.name',
-              surname: '$managerDetails.surname',
-            },
-
-            group: { name: '$groupDetails.group' },
+            // manager: {
+            //   name: '$managerDetails.name',
+            //   surname: '$managerDetails.surname',
+            // },
           },
         },
       ])
       .skip(offset)
       .limit(limit)
-      .sort(sort)
       .exec();
 
     const total = await this.orderModel.countDocuments(filter).exec();

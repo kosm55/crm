@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
+import { OrderDetails } from './components/OrdersContainer/OrderDetails';
 import { AuthLayout, MainLayout } from './layouts';
 import { LoginPage, OrdersPage, RegisterPage } from './pages';
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'orders',
+            element: <OrdersPage />,
+          },
+          {
+            path: 'orders/:orderId',
             element: <OrdersPage />,
           },
           {

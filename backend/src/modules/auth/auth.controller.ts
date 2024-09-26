@@ -35,7 +35,6 @@ export class AuthController {
   // public async signUpAdmin(@Body() dto: BaseUserReqDto): Promise<AuthResDto> {
   //   return await this.authService.singUp(dto, RoleEnum.ADMIN);
   // }
-
   @Roles(RoleEnum.ADMIN)
   @UseGuards(RolesGuard)
   @ApiBearerAuth()

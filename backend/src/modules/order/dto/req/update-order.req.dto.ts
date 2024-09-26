@@ -109,7 +109,7 @@ export class UpdateOrderReqDto {
 
   @IsOptional()
   @IsNumber()
-  @Min(0)
+  //@Min(0)
   @ApiProperty({
     example: 15000,
     description: 'sum',
@@ -118,7 +118,7 @@ export class UpdateOrderReqDto {
 
   @IsOptional()
   @IsNumber()
-  @Min(0)
+  //@Min(0)
   @ApiProperty({
     example: 1000,
     description: 'already paid',
@@ -154,7 +154,7 @@ export class UpdateOrderReqDto {
   status?: StatusEnum | null;
 
   @IsOptional()
-  @Transform(({ value }) => (value ? new Types.ObjectId(value) : null))
+  @Transform(({ value }) => (value === '' ? null : new Types.ObjectId(value)))
   @ApiProperty({
     example: '66b90d12fe5abf5ba161ae76',
     description: 'group id',

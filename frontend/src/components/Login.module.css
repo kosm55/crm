@@ -1,0 +1,46 @@
+.login{
+    background-color: #76b852;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.LoginForm{
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, .2), 0 5px 5px 0 rgba(0, 0, 0, .24);
+    width: 20vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 15px;
+}
+.LoginInput{
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 18px;
+    outline: none;
+    padding: 15px;
+    margin: 15px;
+}
+.LoginButton{
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px;
+    background: #43a047;
+    border: none;
+    color: #fff;
+}
+.LoginLabel{
+    margin-left: 15px;
+}
+.login_error{
+    margin-left: 15px;
+    color: #c03232;
+}

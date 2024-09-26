@@ -1,0 +1,88 @@
+.OrderFormMain{
+    width: 55vw;
+    height: 85vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+
+    display: flex;
+}
+.OrderForm{
+    width: 100%;
+
+}
+.OrderInputsBlock{
+    display: flex;
+    justify-content: space-around;
+}
+.OrderFormInput{
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 18px;
+    outline: none;
+    padding: 10px;
+
+    margin-top: 15px;
+}
+.OrderFormSelect{
+    width: 21.98vw;
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    padding: 10px;
+    margin-top: 15px;
+}
+.Group{
+    margin-bottom: 15px;
+}
+.Status{
+    margin-bottom: 35px;
+}
+.FieldInputDiv{
+    margin-bottom: 10px;
+}
+.btnAddGroup{
+    width: 21.98vw;
+    border-radius: 5px;
+    padding: 2px;
+    background: #43a047;
+    border: none;
+    color: #fff;
+}
+.btnGroupForm{
+    width: 11vw;
+    border-radius: 5px;
+    padding: 2px;
+    background: #43a047;
+    border: none;
+    color: #fff;
+}
+.OrderLabel{
+    margin-top: 15px;
+}
+.ButtonsBlock{
+    display: flex;
+    padding-left: 70%;
+}
+.btnSaveClose{
+    border-radius: 10px;
+    padding: 15px;
+    margin: 5px;
+    background: #43a047;
+    border: none;
+    color: #fff;
+}

@@ -12,6 +12,7 @@ export class UserMapper {
       email: user.email,
       isActive: user.isActive,
       isBanned: user.isBanned,
+      role: user.role,
     };
   }
   public static toResponseActivatedDTO(user: User): ActivatedUserResDto {
@@ -22,6 +23,7 @@ export class UserMapper {
       email: user.email,
       isActive: user.isActive,
       isBanned: user.isBanned,
+      role: user.role,
       activationToken: user.activationToken,
     };
   }
@@ -33,6 +35,7 @@ export class UserMapper {
       email: user.email,
       isActive: user.isActive,
       isBanned: user.isBanned,
+      role: user.role,
       recoveryToken: user.recoveryToken,
     };
   }

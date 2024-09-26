@@ -11,5 +11,7 @@ export class RecoveryUserResDto {
 
   isBanned: boolean;
 
+  role: string;
+
   recoveryToken: string;
 }

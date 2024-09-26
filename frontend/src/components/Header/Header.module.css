@@ -1,0 +1,32 @@
+.Header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    color: snow;
+    background-color: #76b852;
+    padding: 15px;
+}
+
+.Header a{
+    text-decoration: none;
+    color: snow;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 15px;
+}
+
+.name{
+    text-decoration: none;
+    color: snow;
+    font-size: 25px;
+    margin: 15px;
+}
+.tools{
+    display: flex;
+    justify-content: space-around;
+}
+.icon{
+    width: 40px;
+    height: 40px;
+}

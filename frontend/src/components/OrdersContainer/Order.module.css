@@ -1,0 +1,72 @@
+.orderTable{
+    display: table;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-collapse: collapse;
+}
+.orderHeader{
+    display: table-header-group;
+    font-weight: bold;
+    color: #ffffff;
+    background: #76b852;
+    cursor: pointer;
+}
+.orderRow{
+    display: table-row;
+    background: #f6f6f6;
+}
+.orderRow:hover{
+    background: #43A047;
+}
+.orderRow:nth-of-type(odd) {
+    background: #e9e9e9;
+}
+.orderRow:nth-of-type(odd):hover {
+    background: #43A047;
+}
+.orderCell{
+    display: table-cell;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+.orderDetails{
+    display: flex;
+    padding: 15px;
+}
+.OrderDetailsFormBackdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+}
+.orderDetailsLeft{
+    width: 30vw;
+}
+.orderDetailsRight{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+}
+.orderDetailsRightBlock{
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.orderDetailsRightButton{
+    width: 5vw;
+    height: 6vh;
+    padding: 0;
+    border-radius: 10px;
+    margin: 15px;
+    background: #43a047;
+    border: none;
+    color: #fff;
+}
+
+

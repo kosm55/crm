@@ -1,5 +1,11 @@
 import { urls } from '../constants';
-import { IActivateUser, IAuth, ITokens, IUser } from '../interfaces';
+import {
+  IAuth,
+  ITokens,
+  IUser,
+  IUserActivate,
+  IUserRegister,
+} from '../interfaces';
 import { IRes } from '../types';
 import { apiService } from './apiService';
 
@@ -7,11 +13,33 @@ const accessTokenKey = 'access';
 const refreshTokenKey = 'refresh';
 
 const authService = {
-  register(user: IAuth): IRes<IActivateUser> {
+  register(user: IUserRegister): IRes<IUserActivate> {
     return apiService.post(urls.auth.register, user);
   },
-  me(): IRes<IUser> {
-    return apiService.get(urls.users.me);
+  async login(user: IAuth): Promise<IUser> {
+    const { data } = await apiService.post(urls.auth.login, user);
+    this.setTokens({
+      access: data.tokens.accessToken,
+      refresh: data.tokens.refreshToken,
+    });
+    return data.user;
+    // const { data: me } = await this.me();
+    // return me;
+  },
+  async refresh(): Promise<void> {
+    const refreshToken = this.getRefreshToken();
+    const { data } = await apiService.post(
+      urls.auth.refresh,
+      {},
+      {
+        headers: { Authorization: `Bearer ${refreshToken}` },
+      },
+    );
+    const tokens = {
+      access: data.accessToken,
+      refresh: data.refreshToken,
+    };
+    this.setTokens(tokens);
   },
   setTokens({ access, refresh }: ITokens): void {
     localStorage.setItem(accessTokenKey, access);
@@ -26,6 +54,9 @@ const authService = {
   deleteTokens(): void {
     localStorage.removeItem(accessTokenKey);
     localStorage.removeItem(refreshTokenKey);
+  },
+  async logout(): Promise<void> {
+    await apiService.post(urls.auth.logout);
   },
 };
 export { authService };

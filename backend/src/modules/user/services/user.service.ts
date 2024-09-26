@@ -7,7 +7,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { User, UserDocument } from '../../../database/models/user.schema';
-import { RoleEnum } from '../../auth/enums/role.enum';
 import { IUserData } from '../../auth/interfases/user-data.interface';
 import { UserListReqDto } from '../dto/req/user-list.req.dto';
 import { BaseUserResDto } from '../dto/res/base-user.res.dto';

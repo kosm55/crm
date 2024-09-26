@@ -1,5 +1,5 @@
 import { urls } from '../constants';
-import { IOrder, IUser } from '../interfaces';
+import { IUser } from '../interfaces';
 import { IRes } from '../types';
 import { apiService } from './apiService';
 

@@ -74,7 +74,9 @@ const Order: FC<IProps> = ({ order, index, groups, users }) => {
         <div className={css.orderCell}>{managerName || '-'}</div>
       </div>
       {isOrderDetails && (
-        <OrderDetails order={order} closeOrderDetails={closeOrderDetails} />
+        <div className={css.orderDetails}>
+          <OrderDetails order={order} closeOrderDetails={closeOrderDetails} />
+        </div>
       )}
     </>
   );

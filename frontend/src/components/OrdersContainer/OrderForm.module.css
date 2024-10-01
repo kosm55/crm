@@ -31,7 +31,6 @@
     font-size: 18px;
     outline: none;
     padding: 10px;
-
     margin-top: 15px;
 }
 .OrderFormSelect{
@@ -85,4 +84,7 @@
     background: #43a047;
     border: none;
     color: #fff;
+}
+.ErrorMessage{
+    color: #c03232;
 }

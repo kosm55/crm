@@ -15,6 +15,9 @@
     font-weight: bold;
     margin: 15px;
 }
+.Header a:hover{
+    color: #5e675e;
+}
 
 .name{
     text-decoration: none;
@@ -29,4 +32,7 @@
 .icon{
     width: 40px;
     height: 40px;
+}
+.icon:hover{
+    filter: brightness(0) saturate(100%) invert(38%) sepia(5%) saturate(422%) hue-rotate(34deg) brightness(92%) contrast(85%);
 }

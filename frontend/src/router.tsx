@@ -1,12 +1,13 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { AuthLayout, MainLayout } from './layouts';
-import { LoginPage, OrdersPage, RegisterPage } from './pages';
+import { ErrorPage, LoginPage, OrdersPage, RegisterPage } from './pages';
 
 const router = createBrowserRouter([
   {
     path: '',
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

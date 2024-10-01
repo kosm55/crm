@@ -11,6 +11,7 @@ import { TokenService } from '../auth/services/token.service';
 import { UserModule } from '../user/user.module';
 import { OrderController } from './order.controller';
 import { OrderService } from './services/order.service';
+import {UserService} from "../user/services/user.service";
 
 @Module({
   imports: [
@@ -25,6 +26,6 @@ import { OrderService } from './services/order.service';
     ]),
   ],
   controllers: [OrderController],
-  providers: [OrderService, TokenService],
+  providers: [OrderService, TokenService, UserService],
 })
 export class OrderModule {}

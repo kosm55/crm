@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -6,7 +6,10 @@ import { authService } from '../../services';
 import { authActions, userActions } from '../../store';
 import css from './Header.module.css';
 
-const Header = () => {
+interface IState {
+  resetFilters: () => void;
+}
+const Header: FC<IState> = ({ resetFilters }) => {
   const { currentUser } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const access = authService.getAccessToken();
@@ -21,10 +24,18 @@ const Header = () => {
     authService.deleteTokens();
     dispatch(authActions.logout());
   };
+  const resetPage = () => {
+    resetFilters();
+    setTimeout(() => {
+      window.location.reload();
+    }, 0);
+  };
   return (
     <div className={css.Header}>
       <div>
-        <Link to={'/orders'}>LOGO</Link>
+        <Link to={'/orders'} onClick={resetPage}>
+          LOGO
+        </Link>
       </div>
       <div className={css.tools}>
         {currentUser ? (

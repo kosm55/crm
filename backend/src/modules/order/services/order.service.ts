@@ -12,6 +12,7 @@ import { Model, Types } from 'mongoose';
 import { DocNameEnum } from '../../../database/models/enums/document-name.enum';
 import { Group } from '../../../database/models/group.schema';
 import { Order } from '../../../database/models/order.schema';
+import { User } from '../../../database/models/user.schema';
 import { IUserData } from '../../auth/interfases/user-data.interface';
 import { CreateCommentReqDto } from '../dto/req/create-comment.req.dto';
 import { CreateGroupReqDto } from '../dto/req/create-group.req.dto';
@@ -29,6 +30,7 @@ export class OrderService {
   constructor(
     @InjectModel(DocNameEnum.ORDER) private readonly orderModel: Model<Order>,
     @InjectModel(DocNameEnum.GROUP) private readonly groupModel: Model<Group>,
+    @InjectModel(DocNameEnum.USER) private readonly userModel: Model<User>,
     @InjectModel(DocNameEnum.COMMENT)
     private readonly commentModel: Model<Comment>,
   ) {}
@@ -136,6 +138,8 @@ export class OrderService {
     const filter = this.createFilter(query, userData);
 
     const orders = await this.orderModel.find(filter).exec();
+    const groups = await this.groupModel.find().exec();
+    const managers = await this.userModel.find().exec();
 
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Orders');
@@ -156,6 +160,24 @@ export class OrderService {
       { header: 'Manager', key: 'manager', width: 30 },
     ];
     orders.forEach((order: Order) => {
+      let groupName = '';
+      let managerName = '';
+      if (order.group) {
+        for (const item of groups) {
+          if (item._id.toString() === order.group.toString()) {
+            groupName = item.group;
+            break;
+          }
+        }
+      }
+      if (order.manager) {
+        for (const item of managers) {
+          if (item._id.toString() === order.manager.toString()) {
+            managerName = item.name;
+            break;
+          }
+        }
+      }
       worksheet.addRow({
         name: order.name,
         surname: order.surname,
@@ -168,8 +190,8 @@ export class OrderService {
         sum: order.sum,
         already_paid: order.already_paid,
         status: order.status,
-        group: order.group,
-        manager: order.manager,
+        group: groupName,
+        manager: managerName,
       });
     });
 
@@ -184,6 +206,13 @@ export class OrderService {
   }
 
   public async getById(orderId: string): Promise<any> {
+    if (!Types.ObjectId.isValid(orderId)) {
+      throw new BadRequestException(`Invalid order ID ${orderId}`);
+    }
+    const orderExist: Order = await this.orderModel.findById(orderId).exec();
+    if (!orderExist) {
+      throw new NotFoundException(`Order ${orderId} not found`);
+    }
     const order = await this.orderModel
       .aggregate([
         { $match: { _id: new Types.ObjectId(orderId) } },

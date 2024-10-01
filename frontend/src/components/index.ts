@@ -4,3 +4,4 @@ export * from './Register';
 export * from './OrdersContainer';
 export * from './PaginationContainer';
 export * from './CommentContainer';
+export * from './FooterContainer';

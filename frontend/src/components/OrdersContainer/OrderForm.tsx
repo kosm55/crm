@@ -1,9 +1,11 @@
+import { joiResolver } from '@hookform/resolvers/joi';
 import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IOrder } from '../../interfaces';
 import { optionAction, orderActions } from '../../store';
+import { OrderValidator } from '../../validators';
 import { GroupForm } from './GroupForm';
 import css from './OrderForm.module.css';
 
@@ -15,7 +17,15 @@ interface IProps {
 
 const OrderForm: FC<IProps> = ({ order, closeForm, closeOrderDetails }) => {
   const [isAddGroup, setIsAddGroup] = useState(false);
-  const { register, handleSubmit, setValue } = useForm<IOrder>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IOrder>({
+    mode: 'all',
+    resolver: joiResolver(OrderValidator),
+  });
   const { groups, course, courseType, status, courseFormat } = useAppSelector(
     (state) => state.option,
   );
@@ -116,6 +126,9 @@ const OrderForm: FC<IProps> = ({ order, closeForm, closeOrderDetails }) => {
                 type="text"
                 {...register('name')}
               />
+              {errors.name && (
+                <span className={css.ErrorMessage}>{errors.name.message}</span>
+              )}
             </div>
             <div className={css.FieldInputDiv}>
               <label className={css.OrderLabel}>Surname</label>
@@ -124,6 +137,11 @@ const OrderForm: FC<IProps> = ({ order, closeForm, closeOrderDetails }) => {
                 type="text"
                 {...register('surname')}
               />
+              {errors.surname && (
+                <span className={css.ErrorMessage}>
+                  {errors.surname.message}
+                </span>
+              )}
             </div>
             <div className={css.FieldInputDiv}>
               <label>Email</label>
@@ -132,6 +150,9 @@ const OrderForm: FC<IProps> = ({ order, closeForm, closeOrderDetails }) => {
                 type="text"
                 {...register('email')}
               />
+              {errors.email && (
+                <span className={css.ErrorMessage}>{errors.email.message}</span>
+              )}
             </div>
             <div className={css.FieldInputDiv}>
               <label>Phone</label>
@@ -140,6 +161,9 @@ const OrderForm: FC<IProps> = ({ order, closeForm, closeOrderDetails }) => {
                 type="text"
                 {...register('phone')}
               />
+              {errors.phone && (
+                <span className={css.ErrorMessage}>{errors.phone.message}</span>
+              )}
             </div>
             <div className={css.FieldInputDiv}>
               <label>Age</label>
@@ -148,6 +172,9 @@ const OrderForm: FC<IProps> = ({ order, closeForm, closeOrderDetails }) => {
                 type="text"
                 {...register('age')}
               />
+              {errors.age && (
+                <span className={css.ErrorMessage}>{errors.age.message}</span>
+              )}
             </div>
           </div>
           <div>
@@ -169,6 +196,9 @@ const OrderForm: FC<IProps> = ({ order, closeForm, closeOrderDetails }) => {
                 type="text"
                 {...register('sum')}
               />
+              {errors.sum && (
+                <span className={css.ErrorMessage}>{errors.sum.message}</span>
+              )}
             </div>
             <div className={css.FieldInputDiv}>
               <label>Already paid</label>
@@ -177,6 +207,11 @@ const OrderForm: FC<IProps> = ({ order, closeForm, closeOrderDetails }) => {
                 type="text"
                 {...register('already_paid')}
               />
+              {errors.already_paid && (
+                <span className={css.ErrorMessage}>
+                  {errors.already_paid.message}
+                </span>
+              )}
             </div>
             <div className={css.FieldInputDiv}>
               <label>Course</label>

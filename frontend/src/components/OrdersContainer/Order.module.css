@@ -32,8 +32,10 @@
 }
 .orderDetails{
     display: flex;
+    width: 10vw;
     padding: 15px;
 }
+
 .OrderDetailsFormBackdrop{
     position: fixed;
     top: 0;
@@ -44,6 +46,8 @@
     z-index: 999;
 }
 .orderDetailsLeft{
+}
+.Message{
     width: 30vw;
 }
 .orderDetailsRight{
@@ -53,8 +57,7 @@
     padding-left: 15px;
 }
 .orderDetailsRightBlock{
-    /*display: flex;*/
-    /*flex-direction: column;*/
+   padding: 5px;
     border: 1px solid #ccc;
     border-radius: 10px;
 }

@@ -1,27 +1,34 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
+import { IComment, IComments } from '../../interfaces/commnetInterface';
 import { orderActions } from '../../store';
 import { Comment } from './Comment';
 
 interface IProps {
   id: string;
+  comments: IComment[];
 }
 
-const Comments: FC<IProps> = ({ id }) => {
+const Comments: FC<IProps> = ({ id, comments: newComments }) => {
+  const [comments, setComments] = useState<IComments[]>([]);
   const dispatch = useAppDispatch();
-  const { order } = useAppSelector((state) => state.order);
-  useEffect(() => {
-    dispatch(orderActions.getById(id));
-  }, [id, dispatch]);
 
-  if (!order || !order.comments || order.comments.length === 0) {
+  useEffect(() => {
+    const loadComments = async () => {
+      const result = await dispatch(orderActions.getById(id)).unwrap();
+      setComments(result.comments);
+    };
+    loadComments();
+  }, [id, dispatch, newComments]);
+
+  if (!comments || comments.length === 0) {
     return null;
   }
 
   return (
     <div>
-      {order.comments
+      {comments
         .filter((comment) => Object.keys(comment.user).length > 0)
         .map((comment) => (
           <Comment key={comment._id} comment={comment} />

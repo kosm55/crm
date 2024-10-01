@@ -14,12 +14,6 @@ const GroupForm: FC<IState> = ({ setIsAddGroup }) => {
   const dispatch = useAppDispatch();
 
   const addGroup: SubmitHandler<IGroupData> = async (group) => {
-    // const newGroup = (await dispatch(optionAction.createGroup(group))) as {
-    //   payload: IGroup;
-    // };
-    // console.log(newGroup);
-    // setIsAddGroup(false);
-    // setValue('group', newGroup.payload._id);
     await dispatch(optionAction.createGroup(group));
     setIsAddGroup(false);
   };

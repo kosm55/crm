@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 
 import { IOrder, IOrderFull } from '../../interfaces';
 import { IComment } from '../../interfaces/commnetInterface';
+import { IQueryParams } from '../../interfaces/queryInterface';
 import { orderService } from '../../services';
 
 interface IState {
@@ -24,25 +25,30 @@ const initialState: IState = {
 
 const getAll = createAsyncThunk<
   { data: IOrder[]; meta: { total: number; limit: number; offset: number } },
-  { limit: number; offset: number; sortField?: string; sortOrder?: string }
->(
-  'orderSlice/getAll',
-  async ({ limit, offset, sortField, sortOrder }, { rejectWithValue }) => {
+  IQueryParams
+>('orderSlice/getAll', async (query, { rejectWithValue }) => {
+  try {
+    const { data } = await orderService.getAll(query);
+    return data;
+  } catch (e) {
+    const err = e as AxiosError;
+    return rejectWithValue(err.response.data);
+  }
+});
+const exportToExcel = createAsyncThunk<Blob, IQueryParams>(
+  'orderSlice/exportToExcel',
+  async (query, { rejectWithValue }) => {
     try {
-      const { data } = await orderService.getAll(
-        limit,
-        offset,
-        sortField,
-        sortOrder,
-      );
-      return data;
+      const response = await orderService.exportToExcel(query, {
+        responseType: 'blob',
+      });
+      return response.data;
     } catch (e) {
       const err = e as AxiosError;
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(err.response?.data || err.message);
     }
   },
 );
-
 const getById = createAsyncThunk<IOrderFull, string>(
   'orderSlice/getById',
   async (orderId, { rejectWithValue }) => {
@@ -68,18 +74,18 @@ const updateById = createAsyncThunk<
     return rejectWithValue(err.response.data);
   }
 });
-const addComment = createAsyncThunk<IOrder, { id: string; comment: IComment }>(
-  'orderSlice/addComment',
-  async ({ id, comment }, { rejectWithValue }) => {
-    try {
-      const { data } = await orderService.addComment(id, comment);
-      return data;
-    } catch (e) {
-      const err = e as AxiosError;
-      return rejectWithValue(err.response.data);
-    }
-  },
-);
+const addComment = createAsyncThunk<
+  IOrderFull,
+  { id: string; comment: IComment }
+>('orderSlice/addComment', async ({ id, comment }, { rejectWithValue }) => {
+  try {
+    const { data } = await orderService.addComment(id, comment);
+    return data;
+  } catch (e) {
+    const err = e as AxiosError;
+    return rejectWithValue(err.response.data);
+  }
+});
 
 const orderSlice = createSlice({
   name: 'orderSlice',
@@ -108,6 +114,19 @@ const orderSlice = createSlice({
       })
       .addCase(getAll.rejected, (state, action) => {
         state.error = action.error.message;
+      })
+      .addCase(exportToExcel.fulfilled, (state, action) => {
+        const blob = action.payload;
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'orders.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+      })
+      .addCase(exportToExcel.rejected, (state, action) => {
+        state.error = action.error.message;
       }),
 });
 
@@ -115,6 +134,7 @@ const { reducer: orderReducer, actions } = orderSlice;
 const orderActions = {
   ...actions,
   getAll,
+  exportToExcel,
   getById,
   updateById,
   addComment,

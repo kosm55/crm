@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 
 import { useAppSelector } from '../../hooks';
 import { IOrder } from '../../interfaces';
+import { IComment, IComments } from '../../interfaces/commnetInterface';
 import { CommentForm, Comments } from '../CommentContainer';
 import css from './Order.module.css';
 import { OrderForm } from './OrderForm';
@@ -12,8 +13,8 @@ interface IProps {
 }
 const OrderDetails: FC<IProps> = ({ order, closeOrderDetails }) => {
   const { msg, utm, _id, manager } = order;
-
   const [isEdit, setIsEdit] = useState(false);
+  const [comments, setComments] = useState<IComment[]>([]);
   const { currentUser } = useAppSelector((state) => state.user);
   const updateOrder = () => {
     setIsEdit(true);
@@ -24,20 +25,28 @@ const OrderDetails: FC<IProps> = ({ order, closeOrderDetails }) => {
 
   const isDisabled = manager && manager !== currentUser._id;
 
+  const addComment = (newComment: IComment) => {
+    setComments((prev) => [...prev, newComment]);
+  };
+
   return (
     <div className={css.orderDetails}>
       {isEdit && (
         <div className={css.OrderDetailsFormBackdrop} onClick={closeForm}></div>
       )}
       <div className={css.orderDetailsLeft}>
-        <div>Message: {msg || '-'}</div>
-        <div>UTM: {utm || '-'}</div>
+        <div className={css.Message}>Message: {msg || '-'}</div>
+        <div className={css.Message}>UTM: {utm || '-'}</div>
       </div>
 
       <div className={css.orderDetailsRight}>
         <div className={css.orderDetailsRightBlock}>
-          <Comments id={_id} />
-          <CommentForm id={_id} isDisabled={isDisabled} />
+          <Comments id={_id} comments={comments} />
+          <CommentForm
+            id={_id}
+            isDisabled={isDisabled}
+            addComment={addComment}
+          />
         </div>
         {isEdit ? (
           <OrderForm

@@ -4,3 +4,4 @@ export * from './OrderDetails';
 export * from './OrderForm';
 export * from './OrderHeader';
 export * from './GroupForm';
+export * from './OrderSearchForm';

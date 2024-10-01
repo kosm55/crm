@@ -1,37 +1,25 @@
+import { AxiosRequestConfig } from 'axios';
+
 import { urls } from '../constants';
 import { IOrder, IOrderFull } from '../interfaces';
 import { IComment } from '../interfaces/commnetInterface';
 import { IGroup, IGroupData } from '../interfaces/groupInterface';
+import { IQueryParams } from '../interfaces/queryInterface';
 import { IRes } from '../types';
 import { apiService } from './apiService';
 
 const orderService = {
   getAll: (
-    limit: number,
-    offset: number,
-    sortField: string,
-    sortOrder: string,
-    filters?: {
-      name?: string;
-      surname?: string;
-      email?: string;
-      phone?: string;
-      age?: number;
-      course?: string;
-    },
+    query: IQueryParams,
   ): IRes<{
     data: IOrder[];
     meta: { total: number; limit: number; offset: number };
   }> => {
-    // apiService.get(urls.orders.list, {
-    //   params: { limit, offset, sortField, sortOrder },
+    const { limit, offset, sortField, sortOrder, filters } = query;
     const params: Record<string, any> = { limit, offset };
 
-    // Додаємо параметри сортування, якщо вони є
     if (sortField) params.sortField = sortField;
     if (sortOrder) params.sortOrder = sortOrder;
-
-    // Додаємо динамічні фільтри, якщо вони передані
     if (filters) {
       Object.keys(filters).forEach((key) => {
         if (filters[key as keyof typeof filters]) {
@@ -39,8 +27,29 @@ const orderService = {
         }
       });
     }
-    // Викликаємо API із зібраними параметрами
     return apiService.get(urls.orders.list, { params });
+  },
+  exportToExcel: (
+    query: IQueryParams,
+    config?: AxiosRequestConfig,
+  ): IRes<Blob> => {
+    const { limit, offset, sortField, sortOrder, filters } = query;
+    const params: Record<string, any> = { limit, offset };
+
+    if (sortField) params.sortField = sortField;
+    if (sortOrder) params.sortOrder = sortOrder;
+    if (filters) {
+      Object.keys(filters).forEach((key) => {
+        if (filters[key as keyof typeof filters]) {
+          params[key] = filters[key as keyof typeof filters];
+        }
+      });
+    }
+    return apiService.get(urls.orders.exportToExcel, {
+      ...config,
+      params,
+      responseType: 'blob',
+    });
   },
   getById: (orderId: string): IRes<IOrderFull> =>
     apiService.get(urls.orders.byId(orderId)),

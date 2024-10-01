@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 
 import { useAppSelector } from '../../hooks';
 import { IOrder } from '../../interfaces';
-import { IComment, IComments } from '../../interfaces/commnetInterface';
+import { IComment } from '../../interfaces/commnetInterface';
 import { CommentForm, Comments } from '../CommentContainer';
 import css from './Order.module.css';
 import { OrderForm } from './OrderForm';

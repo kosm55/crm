@@ -8,10 +8,10 @@ import { Token, TokenSchema } from '../../database/models/tokens.schema';
 import { User, UserSchema } from '../../database/models/user.schema';
 import { AuthModule } from '../auth/auth.module';
 import { TokenService } from '../auth/services/token.service';
+import { UserService } from '../user/services/user.service';
 import { UserModule } from '../user/user.module';
 import { OrderController } from './order.controller';
 import { OrderService } from './services/order.service';
-import {UserService} from "../user/services/user.service";
 
 @Module({
   imports: [

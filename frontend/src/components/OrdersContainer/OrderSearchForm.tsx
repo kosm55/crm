@@ -1,10 +1,8 @@
-import { joiResolver } from '@hookform/resolvers/joi';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { IGroup } from '../../interfaces/groupInterface';
 import { IQueryParamsFilters } from '../../interfaces/queryInterface';
-import { OrderValidator } from '../../validators';
 import css from './OrderSearchForm.module.css';
 
 interface IState {

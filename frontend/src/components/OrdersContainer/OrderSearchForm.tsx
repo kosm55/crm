@@ -25,12 +25,7 @@ const OrderSearchForm: FC<IState> = ({
   searchOrders,
   loadingXlsFile,
 }) => {
-  const { register, handleSubmit, reset, watch } =
-    useForm<IQueryParamsFilters>();
-  const formValues = watch();
-  // const onSubmit = (data: IQueryParamsFilters) => {
-  //   searchOrders(data);
-  // };
+  const { register, handleSubmit, reset } = useForm<IQueryParamsFilters>();
   const skipFilter = () => {
     reset();
     resetFilters();

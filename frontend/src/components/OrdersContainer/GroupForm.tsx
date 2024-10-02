@@ -10,7 +10,11 @@ interface IState {
   setIsAddGroup: (state: boolean) => void;
 }
 const GroupForm: FC<IState> = ({ setIsAddGroup }) => {
-  const { register, handleSubmit } = useForm<IGroupData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IGroupData>();
   const dispatch = useAppDispatch();
 
   const addGroup: SubmitHandler<IGroupData> = async (group) => {
@@ -24,6 +28,9 @@ const GroupForm: FC<IState> = ({ setIsAddGroup }) => {
         type="text"
         {...register('group')}
       />
+      {errors.group && (
+        <span className={css.ErrorMessage}>{errors.group.message}</span>
+      )}
       <button className={css.btnGroupForm} onClick={handleSubmit(addGroup)}>
         ADD
       </button>

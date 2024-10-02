@@ -83,7 +83,7 @@ const OrdersPage = () => {
       }
     });
     const searchParams = new URLSearchParams(filteredParams);
-    searchParams.set('page', '1');
+    //searchParams.set('page', '1');
     setFilters(formValues);
     setTrigger((prev) => !prev);
 

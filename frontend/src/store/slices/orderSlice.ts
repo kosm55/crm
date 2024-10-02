@@ -13,6 +13,7 @@ interface IState {
   offset: number;
   limit: number;
   error: string;
+  page: number;
 }
 const initialState: IState = {
   orders: [],
@@ -21,6 +22,7 @@ const initialState: IState = {
   offset: 0,
   limit: 25,
   error: null,
+  page: 1,
 };
 
 const getAll = createAsyncThunk<
@@ -91,12 +93,12 @@ const orderSlice = createSlice({
   name: 'orderSlice',
   initialState,
   reducers: {
-    setOffset: (state, action) => {
-      state.offset = action.payload;
-    },
-    setLimit: (state, action) => {
-      state.limit = action.payload;
-    },
+    // setOffset: (state, action) => {
+    //   state.offset = action.payload;
+    // },
+    // setLimit: (state, action) => {
+    //   state.limit = action.payload;
+    // },
   },
   extraReducers: (builder) =>
     builder
@@ -114,16 +116,6 @@ const orderSlice = createSlice({
       })
       .addCase(getAll.rejected, (state, action) => {
         state.error = action.error.message;
-      })
-      .addCase(exportToExcel.fulfilled, (state, action) => {
-        const blob = action.payload;
-        const url = window.URL.createObjectURL(new Blob([blob]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'orders.xlsx');
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
       })
       .addCase(exportToExcel.rejected, (state, action) => {
         state.error = action.error.message;

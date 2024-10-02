@@ -9,7 +9,7 @@ import css from './Pagination.module.css';
 
 const PaginationMain = () => {
   const dispatch = useAppDispatch();
-  const { total, limit } = useAppSelector((state) => state.order);
+  const { total, limit, page } = useAppSelector((state) => state.order);
   const totalPages = Math.ceil(total / limit);
   const [query, setQuery] = useSearchParams();
 
@@ -25,7 +25,11 @@ const PaginationMain = () => {
   // Встановлюємо offset на основі значення сторінки
   useEffect(() => {
     const newOffset = (pageFromQuery - 1) * limit;
-    // Завантаження нових даних
+
+    if (page !== pageFromQuery) {
+      dispatch(orderActions.setPage(pageFromQuery));
+    }
+
     dispatch(
       orderActions.getAll({
         limit,

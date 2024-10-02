@@ -93,6 +93,9 @@ const orderSlice = createSlice({
   name: 'orderSlice',
   initialState,
   reducers: {
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
     // setOffset: (state, action) => {
     //   state.offset = action.payload;
     // },

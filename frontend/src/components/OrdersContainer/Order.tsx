@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useAppSelector } from '../../hooks';
 import { IOrder, IUser } from '../../interfaces';
 import { IGroup } from '../../interfaces/groupInterface';
 import css from './Order.module.css';
@@ -14,6 +15,7 @@ interface IProps {
 }
 
 const Order: FC<IProps> = ({ order, index, groups, users }) => {
+  const { page } = useAppSelector((state) => state.order);
   const [isOrderDetails, setOrderDetails] = useState(false);
   const {
     name,
@@ -44,14 +46,14 @@ const Order: FC<IProps> = ({ order, index, groups, users }) => {
   const getOrderDetails = () => {
     setOrderDetails(!isOrderDetails);
     if (!isOrderDetails) {
-      navigate(`/orders/${order._id}`);
+      navigate(`/orders?page=${page}/${order._id}`);
     } else {
-      navigate('/orders');
+      navigate(`/orders?page=${page}`);
     }
   };
   const closeOrderDetails = () => {
     setOrderDetails(!isOrderDetails);
-    navigate('/orders');
+    navigate(`/orders?page=${page}`);
   };
   return (
     <>

@@ -44,8 +44,6 @@ export class UserController {
   }
 
   @ApiBearerAuth()
-  @Roles(RoleEnum.ADMIN)
-  @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @Get()

@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -6,10 +6,7 @@ import { authService } from '../../services';
 import { authActions, userActions } from '../../store';
 import css from './Header.module.css';
 
-interface IState {
-  resetFilters: () => void;
-}
-const Header: FC<IState> = ({ resetFilters }) => {
+const Header = () => {
   const { currentUser } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const access = authService.getAccessToken();
@@ -25,7 +22,6 @@ const Header: FC<IState> = ({ resetFilters }) => {
     dispatch(authActions.logout());
   };
   const resetPage = () => {
-    resetFilters();
     setTimeout(() => {
       window.location.reload();
     }, 0);
@@ -42,7 +38,7 @@ const Header: FC<IState> = ({ resetFilters }) => {
           <>
             <div className={css.name}>{currentUser.name}</div>
             {currentUser.role === 'admin' && (
-              <Link to="/managers">
+              <Link to="/adminPanel">
                 <img src="/managers.svg" alt="managers" className={css.icon} />
               </Link>
             )}

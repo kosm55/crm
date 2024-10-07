@@ -4,6 +4,7 @@ import { AxiosError } from 'axios';
 import { IOrder, IOrderFull } from '../../interfaces';
 import { IComment } from '../../interfaces/commnetInterface';
 import { IQueryParams } from '../../interfaces/queryInterface';
+import { ITotalStatistic } from '../../interfaces/statisticInterface';
 import { orderService } from '../../services';
 
 interface IState {
@@ -14,6 +15,7 @@ interface IState {
   limit: number;
   error: string;
   page: number;
+  statistic: ITotalStatistic;
 }
 const initialState: IState = {
   orders: [],
@@ -23,6 +25,7 @@ const initialState: IState = {
   limit: 25,
   error: null,
   page: 1,
+  statistic: { statistic: [], totalCount: 0 },
 };
 
 const getAll = createAsyncThunk<
@@ -88,6 +91,30 @@ const addComment = createAsyncThunk<
     return rejectWithValue(err.response.data);
   }
 });
+const getStatistics = createAsyncThunk<ITotalStatistic>(
+  'orderSlice/getStatistics',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await orderService.getStatistic();
+      return data;
+    } catch (e) {
+      const err = e as AxiosError;
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+const getManagerStatistic = createAsyncThunk<ITotalStatistic, string>(
+  'orderSlice/getManagerStatistic',
+  async (managerId, { rejectWithValue }) => {
+    try {
+      const { data } = await orderService.getManagerStatistic(managerId);
+      return data;
+    } catch (e) {
+      const err = e as AxiosError;
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
 
 const orderSlice = createSlice({
   name: 'orderSlice',
@@ -114,6 +141,9 @@ const orderSlice = createSlice({
         state.limit = action.payload.meta.limit;
         state.offset = action.payload.meta.offset;
       })
+      .addCase(getStatistics.fulfilled, (state, action) => {
+        state.statistic = action.payload;
+      })
       .addCase(getById.rejected, (state, action) => {
         state.error = action.error.message;
       })
@@ -133,6 +163,8 @@ const orderActions = {
   getById,
   updateById,
   addComment,
+  getStatistics,
+  getManagerStatistic,
 };
 
 export { orderReducer, orderActions };

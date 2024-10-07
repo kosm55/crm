@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsString, Matches } from 'class-validator';
+import { IsString, Matches, MinLength } from 'class-validator';
 
 import { TransformHelper } from '../../../../common/helpers/transform.helper';
 import { regexConstant } from '../../../../constants/regex.constant';
@@ -19,7 +19,9 @@ export class CreateUserReqDto {
   email: string;
 
   @IsString()
+  @MinLength(2)
   @Transform(TransformHelper.trim)
+  @Transform(TransformHelper.toString)
   @ApiProperty({
     example: 'Erika',
     description: 'The name of user',
@@ -27,7 +29,9 @@ export class CreateUserReqDto {
   name: string;
 
   @IsString()
+  @MinLength(2)
   @Transform(TransformHelper.trim)
+  @Transform(TransformHelper.toString)
   @ApiProperty({
     example: 'Rik',
     description: 'The surname of user',

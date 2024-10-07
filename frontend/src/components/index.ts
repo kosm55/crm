@@ -5,3 +5,4 @@ export * from './OrdersContainer';
 export * from './PaginationContainer';
 export * from './CommentContainer';
 export * from './FooterContainer';
+export * from './AuthContainer';

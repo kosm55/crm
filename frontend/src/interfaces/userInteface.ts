@@ -22,6 +22,16 @@ export interface IUserActivate {
   role: string;
   activationToken: string;
 }
+export interface IUserRecovery {
+  _id: string;
+  name: string;
+  surname: string;
+  email: string;
+  isActive: boolean;
+  isBanned: boolean;
+  role: string;
+  recoveryToken: string;
+}
 
 export interface IUserForOrder {
   name: string;

@@ -45,6 +45,30 @@ const getAll = createAsyncThunk<
     return rejectWithValue(err.response.data);
   }
 });
+const ban = createAsyncThunk<string, string>(
+  'userSlice/ban',
+  async (userId, { rejectWithValue }) => {
+    try {
+      const { data } = await userService.ban(userId);
+      return data;
+    } catch (e) {
+      const err = e as AxiosError;
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+const unban = createAsyncThunk<string, string>(
+  'userSlice/unban',
+  async (userId, { rejectWithValue }) => {
+    try {
+      const { data } = await userService.unban(userId);
+      return data;
+    } catch (e) {
+      const err = e as AxiosError;
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
 
 const userSlice = createSlice({
   name: 'userSlice',
@@ -81,6 +105,8 @@ const userActions = {
   ...actions,
   me,
   getAll,
+  ban,
+  unban,
 };
 
 export { userReducer, userActions };

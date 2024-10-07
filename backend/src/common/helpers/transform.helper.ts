@@ -1,6 +1,9 @@
 export class TransformHelper {
-  public static trim({ value }: { value: string }): string {
-    return value ? value.trim() : value;
+  public static trim({ value }: { value: any }): string | undefined {
+    if (typeof value === 'string') {
+      return value.trim();
+    }
+    return value !== undefined && value !== null ? String(value) : undefined;
   }
   public static toLowerCase({ value }: { value: string }): string {
     return value ? value.toLowerCase() : value;
@@ -9,5 +12,8 @@ export class TransformHelper {
     if (value === 'true') return true;
     if (value === 'false') return false;
     return undefined;
+  }
+  public static toString({ value }: { value: any }): string | undefined {
+    return value !== undefined && value !== null ? String(value) : undefined;
   }
 }

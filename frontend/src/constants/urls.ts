@@ -7,7 +7,8 @@ const orders = '/orders';
 const urls = {
   auth: {
     register: `${auth}/create-manager`,
-    activate: (token: string) => `${auth}/activate/${token}`,
+    activateToken: (userId: string) => `${auth}/activate-token/${userId}`,
+    activateManager: (token: string) => `${auth}/activate/${token}`,
     recoveryToken: (userId: string) => `${auth}/recovery-token/${userId}`,
     recoveryPassword: (token: string) => `${auth}/recovery-password/${token}`,
     login: `${auth}/login`,
@@ -24,8 +25,7 @@ const urls = {
     list: orders,
     exportToExcel: `${orders}/export-to-excel`,
     statistics: `${orders}/statistic`,
-    managerStatistics: (managerId: string) =>
-      `${orders}/${managerId}/statistic`,
+    managerStatistic: (managerId: string) => `${orders}/${managerId}/statistic`,
     byId: (orderId: string) => `${orders}/${orderId}`,
     updateById: (orderId: string) => `${orders}/${orderId}`,
     createGroup: `${orders}/group`,

@@ -1,0 +1,45 @@
+.User{
+    width: 85vw;
+    display: flex;
+    border: 2px solid #76b852;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+.UserInfo{
+    width: 25vw;
+}
+.UserInfoItem{
+    padding-top: 10px;
+}
+.UserInfoStatistic{
+    width: 20vw;
+}
+.UserButton{
+
+}
+.UserButtonItem{
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px;
+    background: #43a047;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+.UserButtonItem:disabled{
+    background: #43a047;
+    color: #fff;
+}
+.UserButtonItem:hover{
+    background: #46793f;
+}
+.UserCopyMessage{
+    color: #284b28;
+    font-style: italic;
+    border-radius: 5px;
+    display: flex;
+    justify-content: end;
+    padding: 5px;
+}

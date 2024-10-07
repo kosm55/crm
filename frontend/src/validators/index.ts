@@ -1,3 +1,3 @@
 export * from './orderValidator';
-export * from './registerValidation';
+export * from './registerValidator';
 export * from './passwordValidator';

@@ -1,0 +1,13 @@
+.OrderStatistic{
+    margin: 15px;
+}
+.OrderStatistic h4{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+.OrderStatisticBlock{
+    width: 20vw;
+    display: flex;
+    justify-content: space-between;
+}

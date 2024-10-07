@@ -46,11 +46,19 @@ export class AuthService {
       password: null,
     });
 
+    return UserMapper.toResponseDTO(user);
+  }
+
+  public async getActionToken(userId: string): Promise<any> {
+    const user = await this.userService.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     const activationToken = await this.tokenService.generateActionToken({
-      userId: user._id.toString(),
-      role,
+      userId,
+      role: user.role,
     });
-    const updatedUser = await this.userService.updateUser(user._id.toString(), {
+    const updatedUser = await this.userService.updateUser(userId, {
       activationToken,
     });
 
@@ -102,10 +110,6 @@ export class AuthService {
       token,
       TokenType.RECOVERY,
     );
-    // const user = await this.userService.findById(payload.userId);
-    // if (user.isActive) {
-    //   throw new UnauthorizedException('User is already activated');
-    // }
     const hashedPassword = await bcrypt.hash(dto.password, 7);
     await this.userService.updateUserPassword(payload.userId, hashedPassword);
     await this.userService.activateUser(payload.userId);

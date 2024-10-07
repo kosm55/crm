@@ -5,6 +5,7 @@ import { IOrder, IOrderFull } from '../interfaces';
 import { IComment } from '../interfaces/commnetInterface';
 import { IGroup, IGroupData } from '../interfaces/groupInterface';
 import { IQueryParams } from '../interfaces/queryInterface';
+import { ITotalStatistic } from '../interfaces/statisticInterface';
 import { IRes } from '../types';
 import { apiService } from './apiService';
 
@@ -68,6 +69,10 @@ const orderService = {
     apiService.put(urls.orders.updateById(orderId), orderData),
   addComment: (orderId: string, comment: IComment): IRes<any> =>
     apiService.post(urls.orders.addComment(orderId), comment),
+  getStatistic: (): IRes<ITotalStatistic> =>
+    apiService.get(urls.orders.statistics),
+  getManagerStatistic: (managerId: string): IRes<ITotalStatistic> =>
+    apiService.get(urls.orders.managerStatistic(managerId)),
 };
 
 export { orderService };

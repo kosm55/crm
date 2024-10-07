@@ -1,7 +1,14 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { AuthLayout, MainLayout } from './layouts';
-import { ErrorPage, LoginPage, OrdersPage, RegisterPage } from './pages';
+import {
+  AdminPanelPage,
+  ErrorPage,
+  LoginPage,
+  OrdersPage,
+  RecoveryPasswordPage,
+  RegisterPage,
+} from './pages';
 
 const router = createBrowserRouter([
   {
@@ -29,10 +36,18 @@ const router = createBrowserRouter([
             element: <OrdersPage />,
           },
           {
+            path: 'adminPanel',
+            element: <AdminPanelPage />,
+          },
+          {
             path: 'register',
             element: <RegisterPage />,
           },
         ],
+      },
+      {
+        path: '/:action/:token',
+        element: <RecoveryPasswordPage />,
       },
     ],
   },

@@ -18,6 +18,12 @@ const userService = {
       params: { limit, offset },
     });
   },
+  ban(userId: string): IRes<string> {
+    return apiService.patch(urls.users.ban(userId));
+  },
+  unban(userId: string): IRes<string> {
+    return apiService.patch(urls.users.unBan(userId));
+  },
 };
 
 export { userService };

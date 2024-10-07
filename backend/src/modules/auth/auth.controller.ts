@@ -31,7 +31,7 @@ export class AuthController {
   // @UseGuards(RolesGuard)
   // @ApiBearerAuth()
   // @Post('sign-up/admin')
-  // @ApiOperation({ summary: 'Sign up admin (only for admin)' })
+  //@ApiOperation({ summary: 'Sign up admin (only for admin)' })
   // public async signUpAdmin(@Body() dto: BaseUserReqDto): Promise<AuthResDto> {
   //   return await this.authService.singUp(dto, RoleEnum.ADMIN);
   // }
@@ -45,6 +45,15 @@ export class AuthController {
   @Post('create-manager')
   public async signUpManager(@Body() dto: CreateUserReqDto): Promise<any> {
     return await this.authService.signUp(dto, RoleEnum.MANAGER);
+  }
+
+  @Roles(RoleEnum.ADMIN)
+  @UseGuards(RolesGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Activation request, get action token' })
+  @Post('activate-token/:userId')
+  public async getActionToken(@Param('userId') userId: string): Promise<any> {
+    return await this.authService.getActionToken(userId);
   }
 
   @SkipAuth()

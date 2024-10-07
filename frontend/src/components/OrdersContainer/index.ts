@@ -5,3 +5,4 @@ export * from './OrderForm';
 export * from './OrderHeader';
 export * from './GroupForm';
 export * from './OrderSearchForm';
+export * from './OrderStatistic';

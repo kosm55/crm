@@ -1,0 +1,31 @@
+.AdminPanelPage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.AdminPanelPageBlockButton{
+    width: 87vw;
+    display: flex;
+    justify-content: start;
+}
+.AdminPanelPageButton{
+    border-radius: 10px;
+    padding: 15px;
+    background: #43a047;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+.AdminPanelPageButton:hover{
+    background: #46793f;
+}
+.AdminPanelPageBackdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+}

@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
+import { Header } from '../components';
 import { Loading } from '../components/LoadingContainer';
 import { useAppSelector } from '../hooks';
 import css from './AuthLayout.module.css';
@@ -17,6 +18,7 @@ const AuthLayout = () => {
         {errorUser && <h5>ERROR USER</h5>}
         {errorOption && <h5>ERROR OPTION</h5>}
       </div>
+      <Header />
       <Outlet />
     </div>
   );

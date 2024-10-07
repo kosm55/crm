@@ -2,13 +2,7 @@ import { saveAs } from 'file-saver';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import {
-  Footer,
-  Header,
-  Orders,
-  OrderSearchForm,
-  PaginationMain,
-} from '../components';
+import { Footer, Orders, OrderSearchForm, PaginationMain } from '../components';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { IQueryParamsFilters } from '../interfaces/queryInterface';
 import { optionAction, orderActions, userActions } from '../store';
@@ -91,7 +85,6 @@ const OrdersPage = () => {
   };
   return (
     <div>
-      <Header resetFilters={resetFilters} />
       <OrderSearchForm
         groups={groups}
         status={status}

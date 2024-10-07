@@ -1,24 +1,22 @@
-.login{
-    background-color: #76b852;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.LoginForm{
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, .2), 0 5px 5px 0 rgba(0, 0, 0, .24);
-    width: 20vw;
-    height: 40vh;
+
+.CreateForm{
+    width: 18vw;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
     padding: 15px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
-.LoginInput{
+.CreateInput{
     display: flex;
     flex-direction: column;
     background: #eee;
@@ -29,7 +27,7 @@
     padding: 15px;
     margin: 15px;
 }
-.LoginButton{
+.CreateButton{
     border-radius: 10px;
     padding: 15px;
     margin: 15px;
@@ -38,13 +36,13 @@
     color: #fff;
     cursor: pointer;
 }
-.LoginButton:hover{
+.CreateButton:hover{
     background: #46793f;
 }
-.LoginLabel{
+.CreateLabel{
     margin-left: 15px;
 }
-.login_error{
+.CreateError{
     margin-left: 15px;
     color: #c03232;
 }

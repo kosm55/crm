@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { useAppDispatch } from '../../../hooks';
-import { IComment } from '../../../interfaces/commnetInterface';
+import { IComment } from '../../../interfaces';
 import { orderActions } from '../../../store';
 import css from './CommentForm.module.css';
 
@@ -15,20 +15,6 @@ const CommentForm: FC<IProps> = ({ id, isDisabled, addComment }) => {
   const { register, reset, handleSubmit } = useForm<IComment>();
   const dispatch = useAppDispatch();
 
-  // const { limit, offset } = useAppSelector((state) => state.order);
-  // const [query] = useSearchParams();
-  //
-  // const sortField = query.get('sortField') || 'created_at';
-  // const sortOrder = query.get('sortOrder') || 'desc';
-
-  // const addComment: SubmitHandler<IComment> = async (comment) => {
-  //   await dispatch(orderActions.addComment({ id, comment }));
-  //   await dispatch(orderActions.getById(id));
-  //   await dispatch(
-  //     orderActions.getAll({ limit, offset, sortField, sortOrder }),
-  //   );
-  //   reset();
-  // };
   const addComments: SubmitHandler<IComment> = async (comment) => {
     await dispatch(orderActions.addComment({ id, comment }));
     addComment(comment);

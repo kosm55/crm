@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { IComments } from '../../../interfaces/commnetInterface';
+import { IComments } from '../../../interfaces';
 import css from './Comment.module.css';
 
 interface IProps {

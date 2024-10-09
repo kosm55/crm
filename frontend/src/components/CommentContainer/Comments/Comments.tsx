@@ -1,9 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 
 import { useAppDispatch } from '../../../hooks';
-import { IComment, IComments } from '../../../interfaces/commnetInterface';
+import { IComment, IComments } from '../../../interfaces';
 import { orderActions } from '../../../store';
-import { Comment } from '../Comment/Comment';
 
 interface IProps {
   id: string;

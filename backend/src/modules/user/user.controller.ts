@@ -44,6 +44,18 @@ export class UserController {
   }
 
   @ApiBearerAuth()
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @Get('user/:userId')
+  @ApiOperation({ summary: 'Get user by id' })
+  public async getById(
+    @Param('userId') userId: string,
+  ): Promise<BaseUserResDto> {
+    return await this.userService.getById(userId);
+  }
+
+  @ApiBearerAuth()
   @ApiNotFoundResponse({ description: 'Not found' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @Get()

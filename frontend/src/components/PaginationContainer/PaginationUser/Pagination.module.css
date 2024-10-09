@@ -1,0 +1,16 @@
+.Page button{
+    background: #76b852;
+}
+.Page button.Mui-selected {
+    background: #284b28;
+}
+.Page button:hover {
+    background: #46793f;
+}
+.PaginationBlock{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+

@@ -7,7 +7,6 @@ import {
   LoginPage,
   OrdersPage,
   RecoveryPasswordPage,
-  RegisterPage,
 } from './pages';
 
 const router = createBrowserRouter([
@@ -38,10 +37,6 @@ const router = createBrowserRouter([
           {
             path: 'adminPanel',
             element: <AdminPanelPage />,
-          },
-          {
-            path: 'register',
-            element: <RegisterPage />,
           },
         ],
       },

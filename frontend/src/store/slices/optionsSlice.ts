@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 
-import { IGroup, IGroupData } from '../../interfaces/groupInterface';
+import { IGroup, IGroupData } from '../../interfaces';
 import { orderService } from '../../services';
 
 interface IState {

@@ -7,6 +7,9 @@ const userService = {
   me(): IRes<IUser> {
     return apiService.get(urls.users.me);
   },
+  getById(userId: string): IRes<IUser> {
+    return apiService.get(urls.users.byId(userId));
+  },
   getAll(
     limit: number,
     offset: number,

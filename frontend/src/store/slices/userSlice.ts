@@ -2,22 +2,26 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 
 import { IUser } from '../../interfaces';
-import { userService } from '../../services/userService';
+import { userService } from '../../services';
 
 interface IState {
   currentUser: IUser;
+  user: IUser;
   users: IUser[];
   total: number;
   offset: number;
   limit: number;
+  page: number;
   error: string;
 }
 const initialState: IState = {
   currentUser: null,
+  user: null,
   users: [],
-  total: null,
-  offset: null,
-  limit: null,
+  total: 0,
+  offset: 0,
+  limit: 25,
+  page: 1,
   error: null,
 };
 
@@ -26,6 +30,18 @@ const me = createAsyncThunk<IUser, void>(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await userService.me();
+      return data;
+    } catch (e) {
+      const err = e as AxiosError;
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+const getById = createAsyncThunk<IUser, string>(
+  'userSlice/getById',
+  async (userId, { rejectWithValue }) => {
+    try {
+      const { data } = await userService.getById(userId);
       return data;
     } catch (e) {
       const err = e as AxiosError;
@@ -73,7 +89,11 @@ const unban = createAsyncThunk<string, string>(
 const userSlice = createSlice({
   name: 'userSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(me.pending, (state) => {
@@ -96,6 +116,9 @@ const userSlice = createSlice({
       })
       .addCase(getAll.rejected, (state, action) => {
         state.error = action.payload as string;
+      })
+      .addCase(getById.fulfilled, (state, action) => {
+        state.user = action.payload;
       }),
 });
 
@@ -104,6 +127,7 @@ const { reducer: userReducer, actions } = userSlice;
 const userActions = {
   ...actions,
   me,
+  getById,
   getAll,
   ban,
   unban,

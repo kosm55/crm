@@ -17,6 +17,7 @@ const urls = {
   },
   users: {
     me: `${users}/me`,
+    byId: (userId: string) => `${users}/user/${userId}`,
     list: users,
     ban: (userId: string) => `${users}/ban/${userId}`,
     unBan: (userId: string) => `${users}/unban/${userId}`,

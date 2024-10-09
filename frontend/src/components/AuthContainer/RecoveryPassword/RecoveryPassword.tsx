@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { IActivate } from '../../../interfaces/activateInterface';
+import { IActivate } from '../../../interfaces';
 import { authActions } from '../../../store';
 import css from './RecoveryPassword.module.css';
 
@@ -39,7 +39,7 @@ const RecoveryPassword = () => {
           Password
         </label>
         <input
-          type="text"
+          type="password"
           placeholder={'Password'}
           {...register('password')}
           className={css.RecoveryInput}
@@ -48,7 +48,7 @@ const RecoveryPassword = () => {
           Confirm Password
         </label>
         <input
-          type="text"
+          type="password"
           placeholder={'Confirm Password'}
           {...register('confirm_password')}
           className={css.RecoveryInput}

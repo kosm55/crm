@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 
-import { IOrder, IOrderFull } from '../../interfaces';
-import { IComment } from '../../interfaces/commnetInterface';
-import { IQueryParams } from '../../interfaces/queryInterface';
-import { ITotalStatistic } from '../../interfaces/statisticInterface';
+import {
+  IComment,
+  IOrder,
+  IOrderFull,
+  IQueryParams,
+  ITotalStatistic,
+} from '../../interfaces';
 import { orderService } from '../../services';
 
 interface IState {
@@ -123,12 +126,6 @@ const orderSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
-    // setOffset: (state, action) => {
-    //   state.offset = action.payload;
-    // },
-    // setLimit: (state, action) => {
-    //   state.limit = action.payload;
-    // },
   },
   extraReducers: (builder) =>
     builder

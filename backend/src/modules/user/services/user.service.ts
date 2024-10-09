@@ -83,14 +83,17 @@ export class UserService {
     }
     return UserMapper.toResponseDTO(user);
   }
+
+  public async getById(userId: string): Promise<BaseUserResDto> {
+    const user = await this.userModel.findById(userId).exec();
+    if (!user) {
+      throw new NotFoundException(`User ${userId} not found`);
+    }
+    return UserMapper.toResponseDTO(user);
+  }
   public async getList(query: UserListReqDto): Promise<UserListResDto> {
-    const { limit = 10, offset = 0 } = query;
-    const total = await this.userModel
-      .countDocuments()
-      // .countDocuments({
-      //   role: RoleEnum.MANAGER,
-      // })
-      .exec();
+    const total = await this.userModel.countDocuments().exec();
+    const { limit = total, offset = 0 } = query;
 
     const managers = await this.userModel
       // .find({ role: RoleEnum.MANAGER })

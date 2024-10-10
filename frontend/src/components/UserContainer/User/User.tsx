@@ -3,11 +3,12 @@ import { FC, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../../hooks';
 import { ITotalStatistic, IUser } from '../../../interfaces';
 import { authActions, orderActions, userActions } from '../../../store';
+import { SetStateFunction } from '../../../types/setStateType';
 import css from './User.module.css';
 
 interface IState {
   user: IUser;
-  setTrigger: (value: any) => void;
+  setTrigger: SetStateFunction<boolean>;
 }
 
 const User: FC<IState> = ({ user, setTrigger }) => {

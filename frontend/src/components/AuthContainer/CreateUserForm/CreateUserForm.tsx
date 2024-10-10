@@ -5,12 +5,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { IUserRegister } from '../../../interfaces';
 import { authActions } from '../../../store';
+import { SetStateFunction } from '../../../types/setStateType';
 import { RegisterValidator } from '../../../validators';
 import css from './CreateUserForm.module.css';
 
 interface IState {
   closeCreateUserForm: () => void;
-  setTrigger: (value: any) => void;
+  setTrigger: SetStateFunction<boolean>;
 }
 const CreateUserForm: FC<IState> = ({ closeCreateUserForm, setTrigger }) => {
   const {

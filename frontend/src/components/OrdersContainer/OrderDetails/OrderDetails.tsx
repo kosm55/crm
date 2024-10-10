@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 
 import { useAppSelector } from '../../../hooks';
 import { IComment, IOrder } from '../../../interfaces';
+import { SetStateFunction } from '../../../types/setStateType';
 import { CommentForm, Comments } from '../../CommentContainer';
 import css from '../Order/Order.module.css';
 import { OrderForm } from '../OrderForm';
@@ -9,7 +10,7 @@ import { OrderForm } from '../OrderForm';
 interface IProps {
   order: IOrder;
   closeOrderDetails: () => void;
-  setTrigger: React.Dispatch<React.SetStateAction<boolean>>;
+  setTrigger: SetStateFunction<boolean>;
 }
 const OrderDetails: FC<IProps> = ({ order, closeOrderDetails, setTrigger }) => {
   const { msg, utm, _id, manager } = order;

@@ -2,11 +2,12 @@ import { FC, useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { userActions } from '../../../store';
+import { SetStateFunction } from '../../../types/setStateType';
 import { User } from '../User';
 
 interface IState {
   trigger: boolean;
-  setTrigger: (value: any) => void;
+  setTrigger: SetStateFunction<boolean>;
 }
 
 const Users: FC<IState> = ({ trigger, setTrigger }) => {

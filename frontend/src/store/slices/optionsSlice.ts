@@ -134,6 +134,9 @@ const optionsSlice = createSlice({
       })
       .addCase(getCourseFormats.rejected, (state, action) => {
         state.error = action.error.message;
+      })
+      .addCase(createGroup.rejected, (state) => {
+        state.error = 'Group already exist';
       }),
 });
 

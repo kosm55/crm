@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../../../hooks';
 import { IGroup, IOrder, IUser } from '../../../interfaces';
+import { SetStateFunction } from '../../../types/setStateType';
 import { OrderDetails } from '../OrderDetails';
 import css from './Order.module.css';
 
@@ -11,7 +12,7 @@ interface IProps {
   index: number;
   groups: IGroup[];
   users: IUser[];
-  setTrigger: React.Dispatch<React.SetStateAction<boolean>>;
+  setTrigger: SetStateFunction<boolean>;
 }
 
 const Order: FC<IProps> = ({ order, index, groups, users, setTrigger }) => {

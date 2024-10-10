@@ -24,15 +24,26 @@ const OrderSearchForm: FC<IState> = ({
   searchOrders,
   loadingXlsFile,
 }) => {
-  const { register, handleSubmit, reset } = useForm<IQueryParamsFilters>();
+  const { register, handleSubmit, reset, setValue, watch } =
+    useForm<IQueryParamsFilters>({
+      defaultValues: { userOnly: 'false' },
+    });
+  const isChecked = watch('userOnly') === 'true';
+
+  const checkboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked ? 'true' : 'false';
+    setValue('userOnly', checked);
+    handleSubmit(searchOrders)();
+  };
+
   const skipFilter = () => {
     reset();
     resetFilters();
   };
 
   return (
-    <form className={css.OrderSearchForm} onChange={handleSubmit(searchOrders)}>
-      <div>
+    <form className={css.OrderSearchForm}>
+      <div onChange={handleSubmit(searchOrders)}>
         <div className={css.InputBlock}>
           <input
             type="text"
@@ -122,6 +133,8 @@ const OrderSearchForm: FC<IState> = ({
             type={'checkbox'}
             {...register('userOnly')}
             className={css.OrderSearchFormInputCheckbox}
+            checked={isChecked}
+            onChange={checkboxChange}
           />
           <label className={css.OrderSearchFormLabel}>My order</label>
         </div>

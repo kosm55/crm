@@ -1,11 +1,15 @@
 import { AxiosRequestConfig } from 'axios';
 
 import { urls } from '../constants';
-import { IOrder, IOrderFull } from '../interfaces';
-import { IComment } from '../interfaces/commnetInterface';
-import { IGroup, IGroupData } from '../interfaces/groupInterface';
-import { IQueryParams } from '../interfaces/queryInterface';
-import { ITotalStatistic } from '../interfaces/statisticInterface';
+import {
+  IComment,
+  IGroup,
+  IGroupData,
+  IOrder,
+  IOrderFull,
+  IQueryParams,
+  ITotalStatistic,
+} from '../interfaces';
 import { IRes } from '../types';
 import { apiService } from './apiService';
 

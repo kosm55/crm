@@ -312,6 +312,40 @@ export class OrderService {
     if (order.manager && order.manager.toString() !== userData.userId) {
       throw new ConflictException('You cannot update this order');
     }
+    if (order.manager && order.manager.toString() === userData.userId) {
+      if (dto.status === StatusEnum.NEW) {
+        const updatedOrder = await this.orderModel
+          .findByIdAndUpdate(
+            orderId,
+            {
+              ...dto,
+              group: dto.group ? new Types.ObjectId(dto.group) : null,
+              manager: null,
+            },
+            {
+              new: true,
+            },
+          )
+          .exec();
+
+        return OrderMapper.toResponseDTO(updatedOrder);
+      } else {
+        const updatedOrder = await this.orderModel
+          .findByIdAndUpdate(
+            orderId,
+            {
+              ...dto,
+              group: dto.group ? new Types.ObjectId(dto.group) : null,
+            },
+            {
+              new: true,
+            },
+          )
+          .exec();
+        return OrderMapper.toResponseDTO(updatedOrder);
+      }
+    }
+
     if (!order.manager) {
       order.manager = new Types.ObjectId(userData.userId);
       order.status =
@@ -320,18 +354,22 @@ export class OrderService {
           : order.status;
 
       await order.save();
-    }
 
-    const updatedOrder = await this.orderModel
-      .findByIdAndUpdate(
-        orderId,
-        { ...dto, group: dto.group ? new Types.ObjectId(dto.group) : null },
-        {
-          new: true,
-        },
-      )
-      .exec();
-    return OrderMapper.toResponseDTO(updatedOrder);
+      const updatedOrder = await this.orderModel
+        .findByIdAndUpdate(
+          orderId,
+          {
+            ...dto,
+            group: dto.group ? new Types.ObjectId(dto.group) : null,
+            status: order.status,
+          },
+          {
+            new: true,
+          },
+        )
+        .exec();
+      return OrderMapper.toResponseDTO(updatedOrder);
+    }
   }
 
   public async create(dto: CreateGroupReqDto): Promise<GroupResDto> {
